@@ -5,7 +5,7 @@ export default function Layout() {
 
   return (
     <>
-      <header className="flex justify-between bg-white p-4 border-b">
+      <header className="flex justify-between bg-white p-4 border-b ">
         <Link to="/">
           <img src="/logo12.svg" alt="logo12" />
         </Link>
