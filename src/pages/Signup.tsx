@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import supabase from "../utils/supabase";
 
-export default function Signup() {  
-  const navigate = useNavigate();   
+export default function Signup() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -41,21 +41,6 @@ export default function Signup() {
 
     if (password !== passwordConfirm) {
       alert("비밀번호 불일치");
-      return;
-    }
-
-    const { data, error } = await supabase.auth.signup({
-      email: email,
-      password: password,
-      options: {
-        data: {
-          nickname,
-        },
-      },
-    });
-
-    if (error) {
-      alert(`회원가입 실패 ${error.message}`);
       return;
     }
 
