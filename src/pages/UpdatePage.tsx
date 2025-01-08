@@ -1,3 +1,3 @@
 export default function UpdatePage() {
-  return <>수정정페이지</>;
+  return <>수정페이지</>;
 }

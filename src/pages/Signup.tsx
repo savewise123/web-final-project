@@ -28,26 +28,36 @@ export default function Signup() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const emailRegex = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+    if (!nickname) {
+      alert("닉네임을 입력해주세요.");
+      return;
+    }
+
+    if (nickname.length <= 2) {
+      alert("닉네임은 3글자 이상이어야 합니다.");
+      return;
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailRegex.test(email)) {
-      alert("이메일 형식 체크");
+      alert("이메일 형식이 올바르지 않습니다.");
       return;
     }
 
     if (password.length < 8) {
-      alert("비밀번호 8자 이상");
+      alert("비밀번호는 8자 이상이어야 합니다.");
       return;
     }
 
     if (password !== passwordConfirm) {
-      alert("비밀번호 불일치");
+      alert("비밀번호가 일치하지 않습니다.");
       return;
     }
 
-    //1. supabase 회원가입
+    // 1. supabase 회원가입
     const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
+      email,
+      password,
       options: {
         data: {
           nickname,
@@ -56,10 +66,11 @@ export default function Signup() {
     });
 
     if (error) {
-      alert(`회원가입 실패 ${error.message}`);
+      alert(`회원가입에 실패했습니다. ${error.message}`);
       return;
     }
-    // 2. user 데이터
+
+    // 2. users 테이블에도 넣어준다
     const { error: userError } = await supabase.from("users").insert({
       id: data.user?.id,
       email: email,
@@ -76,19 +87,19 @@ export default function Signup() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center  h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <h1 className="text-2xl font-bold">회원가입</h1>
-      <form className="flex flex-col gap-5 w-[25rem]" onSubmit={onSubmit}>
+      <form className="flex flex-col gap-4 w-80" onSubmit={onSubmit}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="email" className="text-2xl">
+          <label htmlFor="email" className="text-sm">
             이메일
           </label>
           <input
-            className="border border-blue-500 p-3 rounded-md"
+            className="border border-gray-300 rounded-md p-2"
             id="email"
             name="email"
             type="email"
-            placeholder="이메일을 입력해주세요"
+            placeholder="이메일을 입력해주세요."
             value={email}
             onChange={onEmailChange}
             required
@@ -140,13 +151,13 @@ export default function Signup() {
           />
         </div>
         <button
-          className="py-2 px-4 text-white bg-blue-500 rounded-md"
+          className="py-2 px-4 bg-blue-500 text-white rounded-md"
           type="submit"
         >
           회원가입
         </button>
         <Link
-          className="py-2 text-center text-blue-500 border border-blue-500 rounded-md"
+          className="py-2 px-4 text-center text-blue-500 border border-blue-500 rounded-md"
           to="/login"
         >
           로그인하러 가기
