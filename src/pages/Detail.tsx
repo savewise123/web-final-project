@@ -1,3 +1,3 @@
 export default function Detail() {
-  return <>상세페이지</>;
+  return <>상세 페이지</>;
 }
