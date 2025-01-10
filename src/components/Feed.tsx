@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { FaAngleUp, FaCommentDots } from "react-icons/fa6";
+import { FaCommentDots } from "react-icons/fa6";
 
 function Feed() {
   return (

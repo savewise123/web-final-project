@@ -50,7 +50,6 @@ export default function Login() {
       alert(`로그인에 실패했습니다. ${error.message}`);
       return;
     }
-
     alert("로그인에 성공했습니다~!");
     navigate("/");
   };

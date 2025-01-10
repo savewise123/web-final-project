@@ -1,3 +1,5 @@
+import FeedForm from "../components/FeedForm";
+
 export default function CreatePage() {
-  return <>추가페이지</>;
+  return <FeedForm />;
 }

@@ -1,4 +1,4 @@
-function FeedForm() {
+function FeedFormUp() {
   return (
     <div className="flex flex-col gap-3 bg-white shadow-md p-6 rounded-lg">
       <form className="flex flex-col gap-3">
@@ -9,13 +9,13 @@ function FeedForm() {
         <textarea className="border border-gray-200 rounded-lg h-[500px] p-3 resize-none" />
         <button
           type="submit"
-          className=" px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          className=" px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-blue-700"
         >
-          추가
+          수정
         </button>
       </form>
     </div>
   );
 }
 
-export default FeedForm;
+export default FeedFormUp;

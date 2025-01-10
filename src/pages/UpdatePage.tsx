@@ -1,3 +1,5 @@
+import FeedFormUp from "../components/FeedFormUp";
+
 export default function UpdatePage() {
-  return <>수정페이지</>;
+  return <FeedFormUp />;
 }
