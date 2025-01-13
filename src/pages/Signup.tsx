@@ -65,12 +65,15 @@ export default function Signup() {
       },
     });
 
+    console.log("data", data);
+
     if (error) {
       alert(`회원가입에 실패했습니다. ${error.message}`);
       return;
     }
 
     // 2. users 테이블에도 넣어준다
+
     const { error: userError } = await supabase.from("users").insert({
       id: data.user?.id,
       email: email,
