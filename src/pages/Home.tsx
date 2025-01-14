@@ -1,13 +1,36 @@
 import { Link } from "react-router-dom";
 import Feed from "../components/Feed";
+import { useQuery } from "@tanstack/react-query";
+import supabase from "../utils/supabase";
+import { getFeeds } from "../api/feedApi";
 
 export default function Home() {
+  // 1. supabase에서 가져와서 데이터를 조회
+  // 2. 화면에 보여준다.
+
+  const getFeeds = async () => {
+    const { data, error } = await supabase.from("feeds").select("*");
+
+    if (error) {
+      throw new Error(
+        `feed 데이터를 조회하는 중 에러가 발생했습니다. ${error.message}`
+      );
+    }
+
+    console.log("feedAdata", data);
+    return data;
+  };
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["feeds"],
+    queryFn: getFeeds,
+  });
+
+  if (isLoading) return <div>로딩 중 ...</div>;
+  if (error) return <div>에러 발생: {error.message}</div>;
+
   return (
-    // 1. 화면의 중앙
-    // 2. 최대 너비 제한
     <>
-      {/* 좌우배치: 부모에 display flex 적용하면 됨  */}
-      {/* 양쪽 쫙 펼치기: justify-between */}
       <div className="flex justify-between mb-4">
         <h1 className="text-2xl font-bold">글 목록</h1>
         <Link
@@ -18,9 +41,9 @@ export default function Home() {
         </Link>
       </div>
       <div className="flex flex-col gap-4">
-        <Feed />
-        <Feed />
-        <Feed />
+        {data?.map((item) => (
+          <Feed key={item.id} feed={item} />
+        ))}
       </div>
     </>
   );
