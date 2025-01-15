@@ -1,9 +1,12 @@
 import { FaAngleUp, FaCommentDots } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm";
 
 export default function Detail() {
+  const { id } = useParams();
+
+  
   return (
     <div className="flex flex-col gap-8">
       {/* 뒤로가기 버튼 & 수정, 삭제 버튼  */}
