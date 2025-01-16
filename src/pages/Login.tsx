@@ -16,7 +16,7 @@ export default function Login() {
   };
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault();   
 
     // 유효성 검사
     if (!email) {
