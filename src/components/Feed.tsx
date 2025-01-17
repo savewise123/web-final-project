@@ -1,10 +1,9 @@
 // react-icons는 용량이 매우 크다 -> 사실 권장 X -> 지금은 쉽게 개발하는 게 목적
 import { useQuery } from "@tanstack/react-query";
 import { FaAngleUp, FaCommentDots } from "react-icons/fa6";
-import { data, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getCommentsCount } from "../api/commentApi";
 import { getUpvotesCount } from "../api/upvoteApi";
-import supabase from "../utils/supabase";
 
 interface FeedProps {
   id: string;
@@ -17,12 +16,12 @@ interface FeedProps {
 function Feed({ feed }: { feed: FeedProps }) {
   const { data: commentsCount, isLoading: isCommentsLoading } = useQuery({
     queryKey: ["comments", feed.id],
-    queryFn: async () => getCommentsCount(feed.id),
+    queryFn: () => getCommentsCount(feed.id),
   });
 
   const { data: upvotesCount, isLoading: isUpvotesLoading } = useQuery({
     queryKey: ["upvotes", feed.id],
-    queryFn: async () => getUpvotesCount(feed.id),
+    queryFn: () => getUpvotesCount(feed.id),
   });
 
   return (

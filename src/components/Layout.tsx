@@ -6,7 +6,7 @@ export default function Layout() {
   const { user } = useAuthStore();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await supabase.auth.signOut();   
   };
   return (
     <>
