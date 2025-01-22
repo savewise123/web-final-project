@@ -6,15 +6,32 @@ export default function FeedForm({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-3 bg-white shadow-md p-6 rounded-lg">
-      <form className="flex flex-col gap-3">
-        <h1 className="text-blue-950 text-5xl font-semibold p-5">
-          {pageTitle}
-        </h1>
-        <h2 className="text-blue-950 font-semibold">제목</h2>
-        <textarea className="border border-gray-200 rounded-lg h-[200px] p-3 resize-none" />
-        <h2 className="text-blue-950 font-semibold">내용</h2>
-        <textarea className="border border-gray-200 rounded-lg h-[500px] p-3 resize-none" />
+    <div className="max-w-3xl mx-auto">
+      <h1 className="text-2xl font-bold mb-6">{pageTitle}</h1>
+      <form className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2">
+          <label htmlFor="title" className="text-lg font-bold text-gray-800">
+            제목
+          </label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="제목"
+            className="p-3 rounded-lg border border-gray-300"
+          />
+        </div>
+        <div className="flex flex-col gap-2">
+          <label htmlFor="content" className="text-lg font-bold text-gray-800">
+            내용
+          </label>
+          <textarea
+            id="content"
+            name="content"
+            placeholder="내용"
+            className="p-3 rounded-lg border border-gray-300 h-[400px] resize-none"
+          />
+        </div>
         {children}
       </form>
     </div>

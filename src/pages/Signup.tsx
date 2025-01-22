@@ -98,7 +98,7 @@ export default function Signup() {
             이메일
           </label>
           <input
-            className="border border-gray-300 rounded-md p-2"
+            className="border border-gray-300 rounded-md p-3"
             id="email"
             name="email"
             type="email"

@@ -6,7 +6,7 @@ export default function Layout() {
   const { user } = useAuthStore();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();   
+    await supabase.auth.signOut();
   };
   return (
     <>
@@ -31,7 +31,7 @@ export default function Layout() {
             <>
               <Link
                 to="/login"
-                className="text-sm text-gray-900 bg-white border border-gray-300 rounded-lg px-5 py-2.5 hover:bg-gray-100 font-medium"
+                className="text-gray-900 bg-white border border-gray-300 px-3 py-2 rounded-lg hover:bg-gray-100"
               >
                 로그인
               </Link>

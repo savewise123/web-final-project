@@ -15,12 +15,13 @@ interface FeedProps {
 
 function Feed({ feed }: { feed: FeedProps }) {
   const { data: commentsCount, isLoading: isCommentsLoading } = useQuery({
-    queryKey: ["comments", feed.id],
+    queryKey: ["comments", feed.id, "counts"],
     queryFn: () => getCommentsCount(feed.id),
   });
+  console.log("feedcheck", feed);
 
   const { data: upvotesCount, isLoading: isUpvotesLoading } = useQuery({
-    queryKey: ["upvotes", feed.id],
+    queryKey: ["upvotes", feed.id, "counts"],
     queryFn: () => getUpvotesCount(feed.id),
   });
 
