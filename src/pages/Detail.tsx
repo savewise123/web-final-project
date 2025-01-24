@@ -18,7 +18,7 @@ export default function Detail() {
     queryKey: ["feeds", id],
     queryFn: () => {
       if (!id) {
-        throw new Error("id가 없습니다.");
+        throw new Error("id가 없습니다");
       }
       return getFeedById(id);
     },

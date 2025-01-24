@@ -19,31 +19,33 @@ export default function CommentForm({
   const addCommentMutation = useMutation({
     mutationFn: async () => {
       if (!user) {
-        throw new Error("로그인이 필요합니다");
+        throw new Error("로그인 후 이용해주세요.");
       }
 
       if (!feedId) {
-        throw new Error("Id가 필요합니다다");
+        throw new Error("게시물 아이디가 없습니다.");
       }
 
-      await addComment({ feedId, userId: user.id, content: comment });
+      await addComment({
+        feedId,
+        userId: user.id,
+        content: comment,
+      });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["feeds", feedId, "comments"],
       });
+      setComment("");
     },
-
     onError: (error) => {
       alert(error.message);
     },
   });
 
- 
-  };
-
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // supabase 코드
     addCommentMutation.mutate();
   };
 

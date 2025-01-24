@@ -48,7 +48,5 @@ export const deleteComment = async (commentId: string) => {
     .from("comments")
     .delete()
     .eq("id", commentId);
-  if (error) {
-    throw new Error(error.message);
-  }
+  if (error) throw new Error("댓글 조회 실패");
 };
