@@ -37,7 +37,9 @@ export default function Comment({ comment }: { comment: CommentProps }) {
   const queryClient = useQueryClient();
 
   const deleteMutation = useMutation({
-    mutationFn: () => deleteComment(comment.id),
+    mutationFn: async () => {
+      await supabase.from("comments").delete().eq("id", comment.id);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["feeds", comment.feed_id, "comments"],
@@ -65,9 +67,10 @@ export default function Comment({ comment }: { comment: CommentProps }) {
 
   const handleDelete = () => {
     deleteMutation.mutate();
+    return;
   };
 
-  const handleEditSubmit = async () => {
+  const handleEditSubmit = () => {
     editMutation.mutate();
   };
 
@@ -93,7 +96,11 @@ export default function Comment({ comment }: { comment: CommentProps }) {
           </div>
 
           {isEditing ? (
-            <textarea className="text-gray-500 border border-gray-600 rounded-md p-2 resize-none" />
+            <textarea
+              value={editContent}
+              onChange={(e) => setEditContent(e.target.value)}
+              className="text-gray-500 border border-gray-600 rounded-md p-2 resize-none"
+            />
           ) : (
             <div className="text-gray-500">{comment.content}</div>
           )}

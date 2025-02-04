@@ -94,7 +94,7 @@ export default function Signup() {
       <h1 className="text-2xl font-bold">회원가입</h1>
       <form className="flex flex-col gap-4 w-80" onSubmit={onSubmit}>
         <div className="flex flex-col gap-2">
-          <label htmlFor="email" className="text-sm">
+          <label htmlFor="email" className="text-lg">
             이메일
           </label>
           <input

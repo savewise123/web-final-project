@@ -3,6 +3,7 @@ import FeedForm from "../components/FeedForm";
 import { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { getFeedById } from "../api/feedApi";
+import supabase from "../utils/supabase";
 
 export default function UpdatePage() {
   const { id } = useParams();

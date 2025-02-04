@@ -4,6 +4,7 @@ import { FaAngleUp, FaCommentDots } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { getCommentsCount } from "../api/commentApi";
 import { getUpvotesCount } from "../api/upvoteApi";
+import supabase from "../utils/supabase";
 
 interface FeedProps {
   id: string;
@@ -18,6 +19,7 @@ function Feed({ feed }: { feed: FeedProps }) {
     queryKey: ["comments", feed.id, "counts"],
     queryFn: () => getCommentsCount(feed.id),
   });
+
   console.log("feedcheck", feed);
 
   const { data: upvotesCount, isLoading: isUpvotesLoading } = useQuery({

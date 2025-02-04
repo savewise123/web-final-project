@@ -1,17 +1,19 @@
 import { FaAngleUp, FaCommentDots } from "react-icons/fa6";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getFeedById } from "../api/feedApi";
+import { deleteFeed, getFeedById } from "../api/feedApi";
 import { getUpvotesByFeedId, toggleUpvote } from "../api/upvoteApi";
 import { getCommentsByFeedId } from "../api/commentApi";
 import useAuthStore from "../stores/useAuthStore";
+import supabase from "../utils/supabase";
 
 export default function Detail() {
   // 1. 주소에 있는 id를 가져와야 한다.
   const { id } = useParams();
   const { user } = useAuthStore();
+  const navigate = useNavigate();
 
   // 2. id를 이용하여 API를 요청한다.
   const { data, isLoading, error } = useQuery({
@@ -85,6 +87,22 @@ export default function Detail() {
     },
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: async () => {
+      await supabase.from("feeds").delete().eq("id", id);
+    },
+    onSuccess: () => {
+      navigate("/");
+    },
+  });
+
+  const handleDelete = () => {
+    if (!window.confirm("정말로 삭제하시겠습니까")) {
+      return;
+    }
+    deleteMutation.mutate();
+  };
+
   if (isLoading) return <div>로딩 중 ...</div>;
   if (error) return <div>에러 발생: {error.message}</div>;
 
@@ -106,7 +124,10 @@ export default function Detail() {
             >
               수정
             </Link>
-            <button className="bg-red-500 text-white rounded-md px-4 py-2">
+            <button
+              onClick={handleDelete}
+              className="bg-red-500 text-white rounded-md px-4 py-2"
+            >
               삭제
             </button>
           </div>

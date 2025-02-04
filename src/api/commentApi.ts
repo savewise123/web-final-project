@@ -42,11 +42,3 @@ export const addComment = async ({
   });
   if (error) throw new Error(`댓글 추가 실패: ${error.message}`);
 };
-
-export const deleteComment = async (commentId: string) => {
-  const { error } = await supabase
-    .from("comments")
-    .delete()
-    .eq("id", commentId);
-  if (error) throw new Error("댓글 조회 실패");
-};
